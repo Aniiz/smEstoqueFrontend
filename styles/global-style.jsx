@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export const styles = StyleSheet.create({
   container: {
@@ -8,20 +9,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  text: {
-    fontSize: 23
+  containerLogin: {
+    alignItems: 'center',
   },
 
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
+  hearderStyle: {
+    backgroundColor: "#6666FF",
   },
-
-  button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
-  },
+  headerTintColor: "#fff"
 });
