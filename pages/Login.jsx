@@ -6,11 +6,11 @@ import { styles } from '../styles/global-style';
 import Title from "../components/Title";
 import Button from "../components/Button";
 import Input from "../components/Input";
+import { showMessage } from "react-native-flash-message";
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [temp, setTemp] = useState("");
 
   const handleChangeEmail = email => setEmail(email);
   const handleChangeSenha = senha => setSenha(senha);
@@ -23,9 +23,21 @@ export default function Login({ navigation }) {
     });
     const res = await request.json();
     if (res) {
-      setTemp("");
+      showMessage(
+        {
+          message: "Sucesso!",
+          description: "Login efetuado.",
+          type: "success",
+          style: styles.flashMessage
+        }
+      )
       navigation.navigate('Home');
-    } else setTemp("E-mail ou Senha inválido(a)");
+    } else showMessage({
+      message: "Recusado!",
+      description: "E-mail ou senha inválido(a)!",
+      type: "danger",
+      style: styles.flashMessage
+    });
   }
 
 
@@ -55,7 +67,6 @@ export default function Login({ navigation }) {
         <Button text={"Entrar"} eventPress={sendForm} />
       </SafeAreaView>
 
-      <Title text={temp} />
     </View>
   );
 }

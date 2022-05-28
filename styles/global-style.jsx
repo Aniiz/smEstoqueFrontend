@@ -16,5 +16,9 @@ export const styles = StyleSheet.create({
   hearderStyle: {
     backgroundColor: "#6666FF",
   },
-  headerTintColor: "#fff"
+  headerTintColor: "#fff",
+  flashMessage: {
+    marginTop: 20,
+    padding: 20
+  }
 });

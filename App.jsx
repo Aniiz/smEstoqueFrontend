@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Home from './pages/Home';
 import { createStackNavigator } from '@react-navigation/stack'
 import { styles } from './styles/global-style';
+import FlashMessage from "react-native-flash-message";
 
 const Stack = createStackNavigator();
 const options = {
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
+      <FlashMessage position="top" />
     </NavigationContainer>
 
   );
