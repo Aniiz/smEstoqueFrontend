@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import 'react-native-gesture-handler';
-import { url } from '../config/config.json';
-import { View, SafeAreaView } from 'react-native';
+import { urlLan } from '../config/config.json';
+import { View, SafeAreaView, Image } from 'react-native';
+import SecurePassword from "../components/SecurePassword";
 import { styles } from '../styles/global-style';
 import Title from "../components/Title";
 import Button from "../components/Button";
@@ -11,12 +12,13 @@ import { showMessage } from "react-native-flash-message";
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [secure, setSecure] = useState(true);
 
   const handleChangeEmail = email => setEmail(email);
   const handleChangeSenha = senha => setSenha(senha);
 
   const sendForm = async () => {
-    const request = await fetch(`${url}login`, {
+    const request = await fetch(`${urlLan}login`, {
       method: "POST",
       headers: { "Content-type": "application/json;charset=UTF-8" },
       body: JSON.stringify({ email, senha })
@@ -44,7 +46,10 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Title text="SM Estoque" />
+      <Image
+        source={require('../assets/logo.jpeg')}
+        style={{ width: 200, height: 200 }}
+      />
 
       <SafeAreaView style={styles.containerLogin}>
         <Input
@@ -59,10 +64,11 @@ export default function Login({ navigation }) {
           val={senha}
           eventChange={handleChangeSenha}
           maxLength={30}
-          secure={true}
+          secure={secure}
           placeholder="Senha..."
         />
 
+        <SecurePassword secure={secure} eventChange={() => setSecure(!secure)} />
 
         <Button text={"Entrar"} eventPress={sendForm} />
       </SafeAreaView>
