@@ -20,5 +20,19 @@ export const styles = StyleSheet.create({
   flashMessage: {
     marginTop: 20,
     padding: 20
+  },
+  titleapp: {
+    fontSize: 50,
+    fontWeight: "bold",
+    color: "#4d4d4d",
+    marginBottom: 40    
   }
 });
+
+export const styles_home = StyleSheet.create({
+  container:{
+    width: '100%',
+    height: '50%',
+  }
+})
+
