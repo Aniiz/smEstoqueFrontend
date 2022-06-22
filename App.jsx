@@ -21,8 +21,8 @@ export default function App() {
         initialRoute="Login"
         screenOptions={options}>
 
-        <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
         <Stack.Screen name="Home" options={{ headerShown: false }} component={Home} />
+        <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
 
       </Stack.Navigator>
 

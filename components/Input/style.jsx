@@ -1,7 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { Dimensions } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
-let width = Dimensions.get("screen").width * 0.75;
+const width = Dimensions.get("screen").width * 0.75;
 
 export const style = StyleSheet.create({
   input: {

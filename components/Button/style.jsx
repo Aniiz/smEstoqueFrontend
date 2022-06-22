@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
-let width = Dimensions.get("screen").width * 0.4;
+const width = Dimensions.get("screen").width * 0.4;
 
 export const style = StyleSheet.create({
   button: {
