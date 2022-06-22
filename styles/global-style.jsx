@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export const styles = StyleSheet.create({
   container: {
@@ -25,14 +24,21 @@ export const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: "bold",
     color: "#4d4d4d",
-    marginBottom: 40    
+    marginBottom: 40
+  },
+  topBarContainer: {
+    paddingTop: 30,
+    top: 0,
+    width: '100%',
+    height: 70,
+    backgroundColor: "#3D5A95",
+  },
+  barchildrenbottomButtonContainer: {
+    width: '100%',
+    height: 60,
+    backgroundColor: "#3D5A95",
+    display: 'flex',
+    flexWrap: 'wrap'
   }
 });
-
-export const styles_home = StyleSheet.create({
-  container:{
-    width: '100%',
-    height: '50%',
-  }
-})
 

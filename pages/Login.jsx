@@ -9,7 +9,7 @@ import Input from "../components/Input";
 import { showMessage } from "react-native-flash-message";
 
 export default function Login({ navigation }) {
- 
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [secure, setSecure] = useState(true);
@@ -42,16 +42,14 @@ export default function Login({ navigation }) {
     });
   }
 
-
-
   return (
     <View style={styles.container}>
-      
+
       <Image
         source={require('../assets/logonova.png')}
-        style={{ width: 200, height: 200, marginBottom: 40}}
+        style={{ width: 200, height: 200, marginBottom: 40 }}
       />
-      
+
       <Text style={styles.titleapp}>smEstoque</Text>
 
       <SafeAreaView style={styles.containerLogin}>
@@ -72,7 +70,6 @@ export default function Login({ navigation }) {
         />
 
         <SecurePassword secure={secure} eventChange={() => setSecure(!secure)} />
-
         <Button text={"Entrar"} eventPress={sendForm} />
       </SafeAreaView>
 
