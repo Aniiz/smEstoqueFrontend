@@ -1,15 +1,13 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../styles/global-style';
 
 export const style = StyleSheet.create({
-  topbar: {
-    paddingTop: 30,
+  barchildren: {
+    paddingTop:20,
     top: 0,
     width: '100%',
     height: 70,
-    backgroundColor: "#3D5A95",
-  },
-  barchildren: {
-    width: '100%',
+    backgroundColor: colors.blue,
   },
   textaling: {
     marginBottom: 'auto',

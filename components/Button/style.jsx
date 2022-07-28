@@ -1,19 +1,11 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const width = Dimensions.get("screen").width * 0.4;
+import { StyleSheet} from 'react-native';
 
 export const style = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    height: 60,
-    width: width,
-    backgroundColor: "#3D5A95",
     padding: 10,
-    margin: 10,
-    borderRadius: 2
   },
-
   btnText: {
     fontSize: 20,
     color: 'white',

@@ -9,6 +9,6 @@ export const style = StyleSheet.create({
     width: width,
     borderWidth: 1,
     padding: 10,
-    fontSize: 16
+    fontSize: 16,
   },
 });

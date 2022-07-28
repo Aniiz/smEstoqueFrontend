@@ -6,7 +6,7 @@ export const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10
+    marginTop: 30,
   },
 
   descriptionSecure: {

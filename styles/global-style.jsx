@@ -1,17 +1,37 @@
 import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
+const { width, height } = Dimensions.get('window');
+export const colors = {blue: '#3D5A95' , gray: '#B8B8B8'}
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: width,
+    height: height,
   },
-
-  containerLogin: {
+  containerCentralize : {
+    alignContent: 'center',
     alignItems: 'center',
+    marginTop: 'auto',
+    marginBottom: 'auto'
   },
-
+  containerwhitepages: {
+    width: '100%',
+    minHeight: height,
+    paddingLeft: '10%',
+    paddingRight: '10%',
+  },
+  containerwhitepagesbuttons: {
+    flexDirection: 'row',
+    maxHeight: 50,
+    width: '100%',
+    marginTop: 'auto',
+    marginBottom: 'auto',
+  },
+  containerRow : {
+    flexDirection: 'row',
+  },
   hearderStyle: {
     backgroundColor: "#3D5A95",
   },
@@ -24,21 +44,17 @@ export const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: "bold",
     color: "#4d4d4d",
-    marginBottom: 40
+    marginBottom: 40,
   },
-  topBarContainer: {
-    paddingTop: 30,
-    top: 0,
-    width: '100%',
-    height: 70,
-    backgroundColor: "#3D5A95",
-  },
-  barchildrenbottomButtonContainer: {
+  switchButtons: {
     width: '100%',
     height: 60,
-    backgroundColor: "#3D5A95",
+    backgroundColor: colors.blue,
     display: 'flex',
     flexWrap: 'wrap'
+  },
+  containerscroll: {
+    height: '100%',
+    width: '100%',
   }
 });
-

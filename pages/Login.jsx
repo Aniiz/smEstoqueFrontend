@@ -1,79 +1,52 @@
-import React, { useState } from "react";
 import 'react-native-gesture-handler';
-import { urlLan } from '../config/config.json';
-import { View, SafeAreaView, Image, Text } from 'react-native';
+import React, { useState } from "react";
+import { SafeAreaView, Image, Text, View } from 'react-native';
 import SecurePassword from "../components/SecurePassword";
 import { styles } from '../styles/global-style';
 import Button from "../components/Button";
 import Input from "../components/Input";
-import { showMessage } from "react-native-flash-message";
+import Logando from '../utils/login/Logando';
 
 export default function Login({ navigation }) {
 
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [secure, setSecure] = useState(true);
+  const [Email, setEmail] = useState("");
+  const [Senha, setSenha] = useState("");
+  const [Secure, setSecure] = useState(true);
 
   const handleChangeEmail = email => setEmail(email);
   const handleChangeSenha = senha => setSenha(senha);
 
   const sendForm = async () => {
-    const request = await fetch(`${urlLan}login`, {
-      method: "POST",
-      headers: { "Content-type": "application/json;charset=UTF-8" },
-      body: JSON.stringify({ email, senha })
-    });
-    const res = await request.json();
-    if (res) {
-      showMessage(
-        {
-          message: "Sucesso!",
-          description: "Login efetuado.",
-          type: "success",
-          style: styles.flashMessage
-        }
-      )
-      navigation.navigate('Home');
-    } else showMessage({
-      message: "Recusado!",
-      description: "E-mail ou senha inválido(a)!",
-      type: "danger",
-      style: styles.flashMessage
-    });
+    const resp = await Logando(Email, Senha)
+    if(resp) return navigation.navigate('Home')
   }
 
   return (
-    <View style={styles.container}>
-
-      <Image
-        source={require('../assets/logonova.png')}
-        style={{ width: 200, height: 200, marginBottom: 40 }}
-      />
-
-      <Text style={styles.titleapp}>smEstoque</Text>
-
-      <SafeAreaView style={styles.containerLogin}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerCentralize}>
+        <Image
+          source={require('../assets/logonova.png')}
+          style={{ width: 150, height: 150, marginBottom: 10 }}
+        />
+        <Text style={styles.titleapp}>smEstoque</Text>
         <Input
-          val={email}
+          val={Email}
           eventChange={handleChangeEmail}
           maxLength={80}
           secure={false}
           placeholder="E-mail..."
         />
-
         <Input
-          val={senha}
+          val={Senha}
           eventChange={handleChangeSenha}
           maxLength={30}
-          secure={secure}
+          secure={Secure}
           placeholder="Senha..."
         />
-
-        <SecurePassword secure={secure} eventChange={() => setSecure(!secure)} />
-        <Button text={"Entrar"} eventPress={sendForm} />
-      </SafeAreaView>
-
-    </View>
+        <SecurePassword secure={Secure} eventChange={() => setSecure(!Secure)} />
+        <Button text={"Entrar"} eventPress={sendForm}/>
+      </View>
+    </SafeAreaView>
   );
 }
 
