@@ -24,7 +24,7 @@ export const style = StyleSheet.create({
         paddingLeft: 10,
         paddingBottom: 10,
         fontWeight: 'bold',
-        minWidth: 45
+        minWidth: 45,
     },
     marca: {
         color: colors.gray,

@@ -7,6 +7,8 @@ import  Button from '../components/Button'
 
 import productsEnvio from '../utils/products/productsEnvio';
 import productsEdicao from '../utils/products/productsEdicao';
+import historicoPost from '../utils/historico/requests/historicoPost';
+import historicoPut from '../utils/historico/requests/historicoPut'
 
 import { styles } from "../styles/global-style";
 
@@ -40,18 +42,25 @@ export default function Cadastro({ navigation, route }) {
 
     const Postdata = async () => {
         const resp = await productsEnvio(quantidade, nome, marca, custo, preco)
-        if(resp) return navigation.navigate('Home')
+        if(resp) {
+            const hist = await historicoPost(resp.id, nome, quantidade, preco, 'Entrada')
+            if(hist) return navigation.navigate('Home')
+        }
     }
 
     const Putdata = async () => {
         const resp = await productsEdicao(ProdutoEdit.id, quantidade, nome, marca, custo, preco)
-        if(resp) return navigation.navigate('Home')  
+        if(resp) {
+            const hist = await historicoPut(ProdutoEdit.id, nome)
+            if(hist) return navigation.navigate('Home')  
+        }
     }
     
     const novoProduto = (
         <SafeAreaView style={styles.container}>
             
-            <Title width={'50%'} marginleft={20} marginTop={60} fontsize={22} text={'Adição de produto'}/>
+            <Title  marginRight={'auto'} marginleft={'6%'} marginTop={'15%'}
+             fontsize={22} text={'Adição de produto'}/>
 
             <View style={styles.containerwhitepages}>
                 
@@ -84,7 +93,8 @@ export default function Cadastro({ navigation, route }) {
     const editProduto = (
         <SafeAreaView style={styles.container}>
             
-            <Title width={'50%'} marginleft={20} marginTop={60} fontsize={22} text={'Edição de produto'}/>
+            <Title w marginRight={'auto'} marginleft={'6%'} marginTop={'15%'} 
+            fontsize={22} text={'Edição de produto'}/>
 
             <View style={styles.containerwhitepages}>
                 

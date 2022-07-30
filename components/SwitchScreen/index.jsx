@@ -1,6 +1,18 @@
-import {ScrollView} from 'react-native';
+import { ScrollView, View } from 'react-native';
+import render from 'react-native-web/dist/cjs/exports/render';
 import { style } from './style';
 
-export default ({conteudo}) => (
-  <ScrollView style={style.switchscreen}>{conteudo}</ScrollView>
-);
+export default ({conteudo, hist}) => {
+  let render;
+  hist ? render = (
+    <ScrollView style={style.switchscreen}>
+      {conteudo}
+      <View style={style.container} />
+    </ScrollView>
+    
+  ) : 
+  render = (
+    <ScrollView style={style.switchscreen}>{conteudo}</ScrollView>
+  )
+  return render;
+};

@@ -2,12 +2,13 @@ import { Text, View, ScrollView } from 'react-native';
 import { style } from './style';
 import Title from '../Title'
 
-export default ({nome, marca, quantidade, valor, preço}) => ( 
+export default ({id, nome, marca, quantidade, valor, preço}) => ( 
     <View style={style.container}>
         
         <View style={style.topbar}>         
             <View style={style.titulo}>      
-                <Title fontsize={28} marginleft={'auto'} text={nome}/>
+                <Title style={style.tittle} fontsize={28} marginleft={'auto'} 
+                paddingRight={30} text={'#'+id+' - '+nome}/>
                 <Text style={style.quantidade}>{quantidade}</Text>
             </View>
 

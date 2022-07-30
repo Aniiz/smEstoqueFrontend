@@ -6,7 +6,10 @@ import BarChildrenBottomButton from "../components/BarChildrenBottomButton";
 import SwitchScreen from "../components/SwitchScreen";
 import Products from "../components/Products";
 import AddButton from "../components/AddButton";
+import Historico from "../components/Historico";
+
 import productsGet from "../utils/products/requests/productsGet";
+import historicoGet from "../utils/historico/requests/historicoGet"
 
 import { styles } from "../styles/global-style";
 import Products404 from "../components/Products404";
@@ -15,17 +18,21 @@ export default function Home({ navigation}) {
   const scrollref = useRef(null);
   const { width } = Dimensions.get("screen");
   const [products , setproducts] = useState([])
+  const [historico, sethistorico] = useState([])
   
   const handleScroll = x => scrollref.current.scrollTo({ x: x });
   const handleProducts = async () => setproducts(await productsGet());
+  const handleHistorico = async () => sethistorico (await historicoGet())
   const handleNavigateCadastro = () => navigation.navigate('Cadastro', {'Edit' : null, 'Produto': null })
 
   useEffect(() => {
     handleProducts()
+    handleHistorico()
   }, []);
 
   useEffect(() => navigation.addListener('focus', () => {
     handleProducts()
+    handleHistorico()
   }));
 
   return (
@@ -54,7 +61,16 @@ export default function Home({ navigation}) {
          }
         />
           
-        <SwitchScreen/>
+        <SwitchScreen 
+          hist={true}
+          conteudo={
+            historico.map((historico) => {
+              return <Historico 
+              key={historico.id}
+                event={() => console.log('clicado')}
+                dados={historico}/>
+            })
+        }/>
         
       </ScrollView>
       <AddButton eventPress={handleNavigateCadastro}/>

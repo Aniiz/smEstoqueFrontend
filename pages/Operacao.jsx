@@ -9,6 +9,8 @@ import CheckOperacao from "../components/CheckOperacao";
 
 import productsDel from '../utils/products/requests/productsDel';
 import productsQtdEdit from "../utils/products/productsQtdEdit";
+import historicoDel from "../utils/historico/requests/historicoDel"
+import historicoPost from "../utils/historico/requests/historicoPost"
 
 export default function Cadastro({ navigation , route }) { 
     const [check, setcheck] = useState(false)
@@ -18,18 +20,27 @@ export default function Cadastro({ navigation , route }) {
     const handleCheck = () => setcheck(!check); 
     const handleEditProduct = () => navigation.navigate('Cadastro', {'Edit' : true, 'Produto': ProdutoEnviado });
     const handleQtd = qtdUpdate => setQtdupdate(qtdUpdate);
+    
     const handleUpdateQtd = () => {
         if(check){ 
             const qtdAtualizada = ProdutoEnviado.quantidade-QtdUpdate
-            const resp = productsQtdEdit(ProdutoEnviado.id, qtdAtualizada, ProdutoEnviado.nome,
-                ProdutoEnviado.marca, ProdutoEnviado.custo, ProdutoEnviado.preco);
-            if(resp) navigation.navigate('Home')
+
+            const hist = historicoPost(ProdutoEnviado.id, ProdutoEnviado.nome, 
+                QtdUpdate, ProdutoEnviado.preco, 'Baixa')
+            if(hist){
+                const resp = productsQtdEdit(ProdutoEnviado.id, qtdAtualizada, ProdutoEnviado.nome,
+                    ProdutoEnviado.marca, ProdutoEnviado.custo, ProdutoEnviado.preco);
+                if(resp) navigation.navigate('Home')
+            }   
         }
     }
 
-    const handleDeleteProducts = () => {
-        const resp = productsDel(ProdutoEnviado.id)
-        if(resp) return navigation.navigate('Home')
+    const handleDeleteProducts = async () => {
+        const hist = await historicoDel(ProdutoEnviado.id)
+        if(hist){
+            const resp = await productsDel(ProdutoEnviado.id)
+            if(resp) return navigation.navigate('Home')
+        }
     };
 
     return (
@@ -49,6 +60,7 @@ export default function Cadastro({ navigation , route }) {
                     </View>
                     
                     <VitrineProdutos 
+                        id={ProdutoEnviado.id}
                         nome={ProdutoEnviado.nome} 
                         marca={ProdutoEnviado.marca}
                         quantidade={ProdutoEnviado.quantidade}
