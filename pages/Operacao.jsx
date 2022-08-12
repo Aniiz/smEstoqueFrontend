@@ -1,5 +1,5 @@
 import { styles } from "../styles/global-style";
-import { SafeAreaView , View} from 'react-native';
+import { View } from 'react-native';
 import { useState } from "react";
 
 import  Button from '../components/Button'
@@ -11,24 +11,47 @@ import productsDel from '../utils/products/requests/productsDel';
 import productsQtdEdit from "../utils/products/productsQtdEdit";
 import historicoDel from "../utils/historico/requests/historicoDel"
 import historicoPost from "../utils/historico/requests/historicoPost"
+import { retornaData } from "../utils/data";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Cadastro({ navigation , route }) { 
-    const [check, setcheck] = useState(false)
-    const [QtdUpdate , setQtdupdate] = useState(null)
+    const [checkBaixa, setcheckBaixa] = useState(false);
+    const [checkEntrada, setcheckEntrada] = useState(false);
+    const [QtdUpdateBaixa , setQtdupdateBaixa] = useState(null);
+    const [QtdUpdateEntrada, setQtdUpdateEntrada] = useState(null);
     const ProdutoEnviado =  route.params
 
-    const handleCheck = () => setcheck(!check); 
+    const handleCheckBaixa = () => { setcheckBaixa(!checkBaixa); setcheckEntrada(false) }
+    const handleCheckEntrada = () =>{ setcheckEntrada(!checkEntrada); setcheckBaixa(false) }
+
     const handleEditProduct = () => navigation.navigate('Cadastro', {'Edit' : true, 'Produto': ProdutoEnviado });
-    const handleQtd = qtdUpdate => setQtdupdate(qtdUpdate);
+    const handleQtdBaixa = qtdUpdate => { 
+        if(qtdUpdate > ProdutoEnviado.quantidade) return setQtdupdateBaixa(ProdutoEnviado.quantidade)
+        setQtdupdateBaixa(qtdUpdate)
+    }
+    const handleQtdEntrada = qtdUpdate => setQtdUpdateEntrada(qtdUpdate);
     
     const handleUpdateQtd = () => {
-        if(check){ 
-            const qtdAtualizada = ProdutoEnviado.quantidade-QtdUpdate
+        const data = retornaData()
+        if(checkBaixa){ 
+            const qtdAtualizada = ProdutoEnviado.quantidade-Number(QtdUpdateBaixa)
 
             const hist = historicoPost(ProdutoEnviado.id, ProdutoEnviado.nome, 
-                QtdUpdate, ProdutoEnviado.preco, 'Baixa')
+                QtdUpdateBaixa, ProdutoEnviado.custo ,  ProdutoEnviado.preco, 'Baixa', data)
             if(hist){
                 const resp = productsQtdEdit(ProdutoEnviado.id, qtdAtualizada, ProdutoEnviado.nome,
+                    ProdutoEnviado.marca, ProdutoEnviado.custo, ProdutoEnviado.preco);
+                if(resp) navigation.navigate('Home')
+            } 
+        }
+
+        if(checkEntrada){
+            const qtAtualizada = ProdutoEnviado.quantidade+Number(QtdUpdateEntrada)
+
+            const hist = historicoPost(ProdutoEnviado.id, ProdutoEnviado.nome, 
+                QtdUpdateEntrada, ProdutoEnviado.custo, ProdutoEnviado.preco, 'Entrada', data)
+            if(hist){
+                const resp = productsQtdEdit(ProdutoEnviado.id, qtAtualizada, ProdutoEnviado.nome,
                     ProdutoEnviado.marca, ProdutoEnviado.custo, ProdutoEnviado.preco);
                 if(resp) navigation.navigate('Home')
             }   
@@ -44,7 +67,7 @@ export default function Cadastro({ navigation , route }) {
     };
 
     return (
-       <SafeAreaView style={styles.container}>
+       <ScrollView style={styles.container}>
                 <View style={styles.containerwhitepages}>
                     
                     <View style={styles.containerRow}>
@@ -65,16 +88,30 @@ export default function Cadastro({ navigation , route }) {
                         marca={ProdutoEnviado.marca}
                         quantidade={ProdutoEnviado.quantidade}
                         valor={ProdutoEnviado.custo}
-                        preço={ProdutoEnviado.preco}
+                        preco={ProdutoEnviado.preco}
                     />                    
                     
-                    <CheckOperacao
-                        eventCheck={handleCheck}
-                        check={check}
-                        eventChange={handleQtd}
-                        val={QtdUpdate}
-                        maxLength={15}
-                    />
+                    <View style={styles.containerCentralize}>
+                        <CheckOperacao
+                            eventCheck={handleCheckBaixa}
+                            tipoOperacao={'Operar Baixa'}
+                            check={checkBaixa}
+                            eventChange={handleQtdBaixa}
+                            val={QtdUpdateBaixa}
+                            maxLength={String(ProdutoEnviado.quantidade).length}
+                            type={'only-numbers'}
+                        />
+
+                        <CheckOperacao
+                            eventCheck={handleCheckEntrada}
+                            tipoOperacao={'Operar Entrada'}
+                            check={checkEntrada}
+                            eventChange={handleQtdEntrada}
+                            val={QtdUpdateEntrada}
+                            maxLength={15}
+                            type={'only-numbers'}
+                        />
+                    </View>
                    
                     <View style={[styles.containerwhitepagesbuttons]}>
                        
@@ -97,6 +134,6 @@ export default function Cadastro({ navigation , route }) {
                         />
                     </View>
                 </View>
-       </SafeAreaView>
+       </ScrollView>
     );
 }

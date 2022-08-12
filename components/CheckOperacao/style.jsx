@@ -11,8 +11,7 @@ export const style = StyleSheet.create({
         minHeight: '6%',
         paddingTop: '2%',
         paddingBottom: '2%',
-        marginTop: 'auto',
-        marginBottom: 'auto'
+        marginTop: '10%',
     },
     row : {
         flexDirection: 'row',

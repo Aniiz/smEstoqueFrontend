@@ -16,5 +16,5 @@ export default productsEdicao = (id, quantidade, nome, marca, custo, preco) => {
     if(custo == null || custo == '') return erromsg('Valor de compra');
     if(quantidade == null || quantidade == '') return erromsg('Quanditade');
     if(preco == null || preco == '') return erromsg('Preco');
-    return console.log('Editado'), productsPut(id, Number(quantidade), nome, marca, custo, preco );
+    return console.log('Editado'), productsPut(id, Number(quantidade), nome, marca, custo.replace(',', '').replace(/\./g, ""), preco.replace(',', '').replace(/\./g, ""));
 };

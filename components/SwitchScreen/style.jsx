@@ -7,9 +7,8 @@ export const style = StyleSheet.create({
     height: '100%',
     width: width,
     flex: 1,
-
   },
-  container: {
+  rodape: {
     height: 80,
     width: width,
   }

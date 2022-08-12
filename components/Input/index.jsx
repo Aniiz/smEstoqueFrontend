@@ -11,4 +11,3 @@ export default ({ val, eventChange, placeholder, secure, maxLength }) => (
     secureTextEntry={secure}
   />
 );
-

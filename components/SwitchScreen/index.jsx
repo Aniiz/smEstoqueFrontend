@@ -4,15 +4,15 @@ import { style } from './style';
 
 export default ({conteudo, hist}) => {
   let render;
-  hist ? render = (
-    <ScrollView style={style.switchscreen}>
-      {conteudo}
-      <View style={style.container} />
-    </ScrollView>
-    
-  ) : 
-  render = (
-    <ScrollView style={style.switchscreen}>{conteudo}</ScrollView>
-  )
+  hist ? 
+    render = (
+      <ScrollView style={style.switchscreen}>
+        {conteudo}
+        <View style={style.rodape} />
+      </ScrollView> )
+    : 
+    render = (
+      <ScrollView style={style.switchscreen}>{conteudo}</ScrollView> )
+ 
   return render;
 };

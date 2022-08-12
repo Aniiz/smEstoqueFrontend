@@ -1,4 +1,4 @@
-import { SafeAreaView , View} from 'react-native';
+import { SafeAreaView , View, ScrollView} from 'react-native';
 import { useState, useEffect } from 'react';
 
 import Title from "../components/Title"
@@ -7,8 +7,9 @@ import  Button from '../components/Button'
 
 import productsEnvio from '../utils/products/productsEnvio';
 import productsEdicao from '../utils/products/productsEdicao';
-import historicoPost from '../utils/historico/requests/historicoPost';
-import historicoPut from '../utils/historico/requests/historicoPut'
+import { retornaData } from '../utils/data';
+import historicoEnvio from '../utils/historico/historicoEnvio';
+import historicoEdicao from '../utils/historico/historicoEdicao';
 
 import { styles } from "../styles/global-style";
 
@@ -41,23 +42,24 @@ export default function Cadastro({ navigation, route }) {
       }));
 
     const Postdata = async () => {
+        const data = retornaData()
         const resp = await productsEnvio(quantidade, nome, marca, custo, preco)
         if(resp) {
-            const hist = await historicoPost(resp.id, nome, quantidade, preco, 'Entrada')
+            const hist = await historicoEnvio(resp.id, nome, quantidade, custo, preco, 'Entrada', data)
             if(hist) return navigation.navigate('Home')
         }
     }
 
     const Putdata = async () => {
-        const resp = await productsEdicao(ProdutoEdit.id, quantidade, nome, marca, custo, preco)
+        const resp = await productsEdicao(ProdutoEdit.id, quantidade, nome, marca, custo, preco.replace(',', ''))
         if(resp) {
-            const hist = await historicoPut(ProdutoEdit.id, nome)
+            const hist = await historicoEdicao(ProdutoEdit.id, nome)
             if(hist) return navigation.navigate('Home')  
         }
     }
     
     const novoProduto = (
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
             
             <Title  marginRight={'auto'} marginleft={'6%'} marginTop={'15%'}
              fontsize={22} text={'Adição de produto'}/>
@@ -66,9 +68,9 @@ export default function Cadastro({ navigation, route }) {
                 
                 <InputWithText text={'Nome'} val={nome} eventChange={handleChangeNome}/>
                 <InputWithText text={'Marca'} val={marca} eventChange={handleChangeMarca}/>
-                <InputWithText text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
-                <InputWithText text={'Preço'} val={preco} eventChange={handleChangePreco}/>
-                <InputWithText text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
+                <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
+                <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco}/>
+                <InputWithText type={'only-numbers'} text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
                 
                 <View style={styles.containerwhitepagesbuttons}>
                     
@@ -87,11 +89,11 @@ export default function Cadastro({ navigation, route }) {
 
                 </View>
             </View>
-       </SafeAreaView>
+       </ScrollView>
     )
    
     const editProduto = (
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
             
             <Title w marginRight={'auto'} marginleft={'6%'} marginTop={'15%'} 
             fontsize={22} text={'Edição de produto'}/>
@@ -100,9 +102,9 @@ export default function Cadastro({ navigation, route }) {
                 
                 <InputWithText text={'Nome'} val={nome} eventChange={handleChangeNome}/>
                 <InputWithText text={'Marca'} val={marca} eventChange={handleChangeMarca}/>
-                <InputWithText text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
-                <InputWithText text={'Preço'} val={preco} eventChange={handleChangePreco}/>
-                <InputWithText text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
+                <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
+                <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco}/>
+                <InputWithText tyoe={'only-numbers'}text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
                 
                 <View style={styles.containerwhitepagesbuttons}>
                     
@@ -121,7 +123,7 @@ export default function Cadastro({ navigation, route }) {
 
                 </View>
             </View>
-       </SafeAreaView>
+       </ScrollView>
     )
     if(Edit) return editProduto;
     return novoProduto;

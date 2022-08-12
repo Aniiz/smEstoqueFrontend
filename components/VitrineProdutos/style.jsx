@@ -37,11 +37,15 @@ export const style = StyleSheet.create({
         borderColor: colors.gray,
         marginLeft: 'auto',
         marginRight: 'auto',
-        marginTop: '15%',
+        marginTop: '10%',
         flexDirection: 'row',
     },
     texto: {
         color: colors.blue,
-        fontSize: 30,
-    }
+        fontSize: 22,
+    },
+    textoGray: {
+        color: colors.gray,
+        fontSize: 22,
+    } 
 })
