@@ -44,5 +44,10 @@ export const style = StyleSheet.create({
     texto: {
         color: colors.gray,
         fontSize: 15,
+    },
+    textoAlert: {
+        color: '#b31e00',
+        fontSize: 15,
+        fontWeight: 'bold'
     }
 });

@@ -20,6 +20,8 @@ export default function Cadastro({ navigation, route }) {
     const [custo, setcusto] = useState(null);
     const [preco, setpreco] = useState(null);
     const [quantidade, setquantidade] = useState(null);
+    const [minimo, setminimo] = useState(null);
+
     const Edit = route.params.Edit
     const ProdutoEdit = route.params.Produto
 
@@ -28,6 +30,7 @@ export default function Cadastro({ navigation, route }) {
     const handleChangeCusto = custo => setcusto(custo);
     const handleChangePreco = preco => setpreco(preco);
     const handleChangeQuantidade = quantidade => setquantidade(quantidade);
+    const handleChangeMinimo = minimo => setminimo(minimo)
 
     const loadData = () => {
         setnome(ProdutoEdit.nome)
@@ -35,6 +38,7 @@ export default function Cadastro({ navigation, route }) {
         setcusto(String(ProdutoEdit.custo))
         setpreco(String(ProdutoEdit.preco))
         setquantidade(String(ProdutoEdit.quantidade))
+        setminimo(ProdutoEdit.minimo)
     }
 
     useEffect(() => navigation.addListener('focus', () => {
@@ -43,15 +47,15 @@ export default function Cadastro({ navigation, route }) {
 
     const Postdata = async () => {
         const data = retornaData()
-        const resp = await productsEnvio(quantidade, nome, marca, custo, preco)
+        const resp = await productsEnvio(quantidade, nome, marca, custo, preco, minimo)
         if(resp) {
-            const hist = await historicoEnvio(resp.id, nome, quantidade, custo, preco, 'Entrada', data)
+            const hist = await historicoEnvio(resp.id, nome, quantidade, custo, preco, 'Entrada', data, marca)
             if(hist) return navigation.navigate('Home')
         }
     }
 
     const Putdata = async () => {
-        const resp = await productsEdicao(ProdutoEdit.id, quantidade, nome, marca, custo, preco.replace(',', ''))
+        const resp = await productsEdicao(ProdutoEdit.id, quantidade, nome, marca, custo, preco.replace(',', ''), minimo)
         if(resp) {
             const hist = await historicoEdicao(ProdutoEdit.id, nome)
             if(hist) return navigation.navigate('Home')  
@@ -71,7 +75,8 @@ export default function Cadastro({ navigation, route }) {
                 <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
                 <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco}/>
                 <InputWithText type={'only-numbers'} text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
-                
+                <InputWithText type={'only-numbers'} text={'Estoque Minimo'} val={minimo} eventChange={handleChangeMinimo}/>
+
                 <View style={styles.containerwhitepagesbuttons}>
                     
                     <Button 
@@ -105,7 +110,8 @@ export default function Cadastro({ navigation, route }) {
                 <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
                 <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco}/>
                 <InputWithText tyoe={'only-numbers'}text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
-                
+                <InputWithText type={'only-numbers'} text={'Estoque Minimo'} val={minimo} eventChange={handleChangeMinimo}/>
+
                 <View style={styles.containerwhitepagesbuttons}>
                     
                     <Button 

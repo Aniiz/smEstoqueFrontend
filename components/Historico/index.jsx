@@ -19,6 +19,7 @@ export default ({dados, event}) => {
                 <View style={style.Containertexto}>
                 
                     <Text style={style.titulo}>{dados.nome}</Text>
+                    <Text style={style.texto}>{`Marca: ${dados.marca}`}</Text>
                     <Text style={style.texto}>{`Data: ${dados.data}`}</Text>
                     <Text style={style.texto}>{`Quantidade: ${dados.quantidade}`}</Text>
                     <Text style={style.texto}>
@@ -47,6 +48,7 @@ export default ({dados, event}) => {
                 <View style={style.Containertexto}>
                 
                     <Text style={style.titulo}>{dados.nome}</Text>
+                    <Text style={style.texto}>{`Marca: ${dados.marca}`}</Text>
                     <Text style={style.texto}>{`Data: ${dados.data}`}</Text>
                     <Text style={style.texto}>{`Quantidade: ${dados.quantidade}`}</Text>
                     <Text style={style.texto}>

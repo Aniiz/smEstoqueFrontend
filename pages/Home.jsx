@@ -56,6 +56,10 @@ export default function Home({ navigation}) {
       return item.produto_id == pesquisa
     })
 
+    let filtroDataHistorico = historicoFromDB.filter((item) => {
+      return item.data.includes(pesquisa)
+    })
+
     if(filtroNomeProduto.length > 0) {
       setprodutos(filtroNomeProduto)
       sethistorico(filtroNomeHistorico)
@@ -64,6 +68,10 @@ export default function Home({ navigation}) {
     else if (filtroIdProduto.length > 0){
       setprodutos(filtroIdProduto)
       sethistorico(filtroIdHistorico)
+    }
+
+    else if (filtroDataHistorico.length> 0){
+      sethistorico(filtroDataHistorico)
     }
 
   }, [pesquisa]);
@@ -87,9 +95,7 @@ export default function Home({ navigation}) {
               return <Products
                 event={() => navigation.navigate('Operacao', produto)}
                 key={produto.id}
-                Nome={produto.nome}
-                Quantidade={produto.quantidade}
-                Valor={produto.preco}
+                produto={produto}
                 />
             })
             :
@@ -99,9 +105,7 @@ export default function Home({ navigation}) {
                   return <Products
                     event={() => navigation.navigate('Operacao', produto)}
                     key={produto.id}
-                    Nome={produto.nome}
-                    Quantidade={produto.quantidade}
-                    Valor={produto.preco}
+                    produto={produto}
                   />}) 
                 : 
                 <Products404 src={require('../assets/Products404.png')}/>

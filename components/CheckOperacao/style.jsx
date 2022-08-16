@@ -30,7 +30,7 @@ export const style = StyleSheet.create({
     text : {
         fontSize: 18,
         color: colors.gray,
-        marginLeft: '10%'
+        marginLeft: '5%'
     },
     input: {
         fontSize: 16,
