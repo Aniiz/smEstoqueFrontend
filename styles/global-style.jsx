@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
-export const colors = {blue: '#3D5A95' , gray: '#B8B8B8'}
+export const colors = { blue: '#3D5A95', gray: '#B8B8B8' }
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     width: width,
     height: height,
   },
-  containerCentralize : {
+  containerCentralize: {
     alignContent: 'center',
     alignItems: 'center',
     marginTop: 'auto',
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
   },
-  containerRow : {
+  containerRow: {
     flexDirection: 'row',
   },
   hearderStyle: {
@@ -56,5 +56,12 @@ export const styles = StyleSheet.create({
   containerscroll: {
     height: '100%',
     width: '100%',
+  },
+  center: {
+    width,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 'auto',
+    marginBottom: 'auto'
   }
 });
