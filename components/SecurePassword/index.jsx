@@ -4,7 +4,7 @@ import Checkbox from 'expo-checkbox';
 import { colors } from '../../styles/global-style';
 export default ({ secure, eventChange }) => (
   <View style={style.secureContainer}>
-    <Text style={style.descriptionSecure}>Visualizar senha</Text>
+    <Text onPress={eventChange} style={style.descriptionSecure}>Visualizar senha</Text>
     <Checkbox
       value={!secure}
       onValueChange={eventChange}

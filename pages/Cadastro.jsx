@@ -1,9 +1,9 @@
-import { SafeAreaView , View, ScrollView} from 'react-native';
+import { SafeAreaView, View, ScrollView } from 'react-native';
 import { useState, useEffect } from 'react';
 
 import Title from "../components/Title"
 import InputWithText from '../components/InputWithText';
-import  Button from '../components/Button'
+import Button from '../components/Button'
 
 import productsEnvio from '../utils/products/productsEnvio';
 import productsEdicao from '../utils/products/productsEdicao';
@@ -13,7 +13,7 @@ import historicoEdicao from '../utils/historico/historicoEdicao';
 
 import { styles } from "../styles/global-style";
 
-export default function Cadastro({ navigation, route }) { 
+export default function Cadastro({ navigation, route }) {
 
     const [nome, setnome] = useState(null);
     const [marca, setmarca] = useState(null);
@@ -42,51 +42,51 @@ export default function Cadastro({ navigation, route }) {
     }
 
     useEffect(() => navigation.addListener('focus', () => {
-        if(Edit) loadData()
-      }));
+        if (Edit) loadData()
+    }));
 
     const Postdata = async () => {
         const data = retornaData()
         const resp = await productsEnvio(quantidade, nome, marca, custo, preco, minimo)
-        if(resp) {
+        if (resp) {
             const hist = await historicoEnvio(resp.id, nome, quantidade, custo, preco, 'Entrada', data, marca)
-            if(hist) return navigation.navigate('Home')
+            if (hist) return navigation.navigate('Home')
         }
     }
 
     const Putdata = async () => {
         const resp = await productsEdicao(ProdutoEdit.id, quantidade, nome, marca, custo, preco.replace(',', ''), minimo)
-        if(resp) {
-            const hist = await historicoEdicao(ProdutoEdit.id, nome)
-            if(hist) return navigation.navigate('Home')  
+        if (resp) {
+            const hist = await historicoEdicao(ProdutoEdit.id, nome, marca)
+            if (hist) return navigation.navigate('Home')
         }
     }
-    
+
     const novoProduto = (
         <ScrollView style={styles.container}>
-            
-            <Title  marginRight={'auto'} marginleft={'6%'} marginTop={'15%'}
-             fontsize={22} text={'Adição de produto'}/>
+
+            <Title marginRight={'auto'} marginleft={'6%'} marginTop={'15%'}
+                fontsize={22} text={'Adição de produto'} />
 
             <View style={styles.containerwhitepages}>
-                
-                <InputWithText text={'Nome'} val={nome} eventChange={handleChangeNome}/>
-                <InputWithText text={'Marca'} val={marca} eventChange={handleChangeMarca}/>
-                <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
-                <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco}/>
-                <InputWithText type={'only-numbers'} text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
-                <InputWithText type={'only-numbers'} text={'Estoque Minimo'} val={minimo} eventChange={handleChangeMinimo}/>
+
+                <InputWithText text={'Nome'} val={nome} eventChange={handleChangeNome} />
+                <InputWithText text={'Marca'} val={marca} eventChange={handleChangeMarca} />
+                <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto} />
+                <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco} />
+                <InputWithText type={'only-numbers'} text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade} />
+                <InputWithText type={'only-numbers'} text={'Estoque Minimo'} val={minimo} eventChange={handleChangeMinimo} />
 
                 <View style={styles.containerwhitepagesbuttons}>
-                    
-                    <Button 
-                        text={"Cancelar"} 
-                        eventPress={() => {navigation.navigate('Home')}}
+
+                    <Button
+                        text={"Cancelar"}
+                        eventPress={() => { navigation.navigate('Home') }}
                         width={'40%'} height={50} margin={0}
                         backgroundColor={'#B8B8B8'}
                     />
-                    <Button 
-                        text={"Concluir"} 
+                    <Button
+                        text={"Concluir"}
                         eventPress={Postdata}
                         width={'40%'} height={50} margin={0} positon={'absolute'}
                         right={0}
@@ -94,43 +94,43 @@ export default function Cadastro({ navigation, route }) {
 
                 </View>
             </View>
-       </ScrollView>
+        </ScrollView>
     )
-   
+
     const editProduto = (
         <ScrollView style={styles.container}>
-            
-            <Title w marginRight={'auto'} marginleft={'6%'} marginTop={'15%'} 
-            fontsize={22} text={'Edição de produto'}/>
+
+            <Title w marginRight={'auto'} marginleft={'6%'} marginTop={'15%'}
+                fontsize={22} text={'Edição de produto'} />
 
             <View style={styles.containerwhitepages}>
-                
-                <InputWithText text={'Nome'} val={nome} eventChange={handleChangeNome}/>
-                <InputWithText text={'Marca'} val={marca} eventChange={handleChangeMarca}/>
-                <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto}/>
-                <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco}/>
-                <InputWithText tyoe={'only-numbers'}text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade}/>
-                <InputWithText type={'only-numbers'} text={'Estoque Minimo'} val={minimo} eventChange={handleChangeMinimo}/>
+
+                <InputWithText text={'Nome'} val={nome} eventChange={handleChangeNome} />
+                <InputWithText text={'Marca'} val={marca} eventChange={handleChangeMarca} />
+                <InputWithText type={'money'} text={'Valor de compra'} val={custo} eventChange={handleChangeCusto} />
+                <InputWithText type={'money'} text={'Preço'} val={preco} eventChange={handleChangePreco} />
+                <InputWithText tyoe={'only-numbers'} text={'Quantidade'} val={quantidade} eventChange={handleChangeQuantidade} />
+                <InputWithText type={'only-numbers'} text={'Estoque Minimo'} val={minimo} eventChange={handleChangeMinimo} />
 
                 <View style={styles.containerwhitepagesbuttons}>
-                    
-                    <Button 
+
+                    <Button
                         width={'40%'} height={50} margin={0}
                         backgroundColor={'#B8B8B8'}
-                        text={"Cancelar"} 
-                        eventPress={() => {navigation.navigate('Home')}}
+                        text={"Cancelar"}
+                        eventPress={() => { navigation.navigate('Home') }}
                     />
-                    <Button 
+                    <Button
                         width={'40%'} height={50} margin={0} positon={'absolute'}
                         right={0}
-                        text={"Concluir"} 
+                        text={"Concluir"}
                         eventPress={Putdata}
                     />
 
                 </View>
             </View>
-       </ScrollView>
+        </ScrollView>
     )
-    if(Edit) return editProduto;
+    if (Edit) return editProduto;
     return novoProduto;
 }

@@ -20,12 +20,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Home'
-        screenOptions={options}>    
-        <Stack.Screen name="Login" options={{ headerShown: false }} component={Login}/>
-        <Stack.Screen name="Home" options={{ headerShown: false }} component={Home}/>
-        <Stack.Screen name="Cadastro" options={{ headerShown: false }} component={Cadastro}/>
-        <Stack.Screen name="Operacao" options={{ headerShown: false }} component={Operacao}/>
+        initialRouteName='Login'
+        screenOptions={options}>
+        <Stack.Screen name="Login" options={{ headerShown: false }} component={Login} />
+        <Stack.Screen name="Home" options={{ headerShown: false }} component={Home} />
+        <Stack.Screen name="Cadastro" options={{ headerShown: false }} component={Cadastro} />
+        <Stack.Screen name="Operacao" options={{ headerShown: false }} component={Operacao} />
       </Stack.Navigator>
       <FlashMessage position="top" />
     </NavigationContainer>

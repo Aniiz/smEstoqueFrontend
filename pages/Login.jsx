@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
 import React, { useState } from "react";
-import { SafeAreaView, Image, Text, View } from 'react-native';
+import { SafeAreaView, Image, Text, View, ActivityIndicator } from 'react-native';
 import SecurePassword from "../components/SecurePassword";
-import { styles } from '../styles/global-style';
+import { colors, styles } from '../styles/global-style';
 import Button from "../components/Button";
 import Input from "../components/Input";
 import Logando from '../utils/login/Logando';
@@ -12,13 +12,16 @@ export default function Login({ navigation }) {
   const [Email, setEmail] = useState("");
   const [Senha, setSenha] = useState("");
   const [Secure, setSecure] = useState(true);
+  const [load, setLoad] = useState(false);
 
   const handleChangeEmail = email => setEmail(email);
   const handleChangeSenha = senha => setSenha(senha);
 
   const sendForm = async () => {
-    const resp = await Logando(Email, Senha)
-    if(resp) return navigation.navigate('Home')
+    setLoad(true);
+    const resp = await Logando(Email, Senha);
+    setLoad(false);
+    if (resp) return navigation.navigate('Home')
   }
 
   return (
@@ -44,7 +47,11 @@ export default function Login({ navigation }) {
           placeholder="Senha..."
         />
         <SecurePassword secure={Secure} eventChange={() => setSecure(!Secure)} />
-        <Button text={"Entrar"} eventPress={sendForm}/>
+        <Button text={"Entrar"} eventPress={sendForm} />
+        {load ? <View style={{ ...styles.center, marginTop: 40 }}>
+          <ActivityIndicator size="large" color={colors.blue} />
+        </View> :
+          null}
       </View>
     </SafeAreaView>
   );

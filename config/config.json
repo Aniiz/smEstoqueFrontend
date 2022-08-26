@@ -1,4 +1,4 @@
 {
-  "urlLan": "https://sm-estoque.herokuapp.com/",
+  "urlLan": "http://10.0.0.28:3001/",
   "urlLocal": "http://127.0.0.1:3001/"
 }
