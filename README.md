@@ -1,4 +1,4 @@
-##Requisitos Funcionais:
+## Requisitos Funcionais:
 
 - O sistema deve permitir o cadastro, entrada, saída, alteração e remoção de produtos com os seguintes atributos: descrição, quantidade e código.
 - O sistema deve fornecer um ID para todos os produtos cadastrados.
@@ -9,7 +9,7 @@
 - O sistema deve exigir o valor de compra e venda de todos os produtos.
 - O sistema deve exibir o valor de compra e venda de todos os produtos.
 
-##Requisitos Não-Funcionais:
+## Requisitos Não-Funcionais:
 
 - O gerenciador do banco de dados deverá ser o MySQL.
 - O sistema deve ser hospedado no servidor do Heroku.
@@ -21,7 +21,7 @@
 - O sistema deve ser operacional, de maneira simultânea em diferentes dispositivos.
 - O projeto deverá ser executado seguindo como modelo uma arquitetura em camadas, cada camada conterá apenas os algoritmos relacionados à sua função.
 
-##Requisitos Inversos:
+## Requisitos Inversos:
 
 - O sistema não deve permitir que o usuário acesse diretamente o banco de dados.
 - O sistema não deve permitir que o usuário cadastre ou remova os logins de acesso.
